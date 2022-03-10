@@ -1,1 +1,1 @@
-Wordle-Solver-Using-Selenium
+Wordle-Solver-Using-SeleniumBase
