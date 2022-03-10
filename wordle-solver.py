@@ -1,5 +1,6 @@
 import ast
 from distutils import text_file
+from email import message
 import random 
 import requests
 from seleniumbase import __version__
@@ -45,5 +46,17 @@ class WordleTests(BaseCase):
                         new_word_list.append(w)
                 self.word_list = new_word_list
                 new_word_list = []
+    
+    def skip_incorrect_env(self):
+        if self.headless:
+            message = "This test does not run in headless mode!"
+            print(message)
+            self.skip(message)
+        version = [int(i) for i in __version__.split(".") if i.isdigit()]
+        if version < [2, 4, 4]:
+            message = "Requires SeleniumBase 2.4.4 or newer!"
+            print(message)
+            self.skip(message)
+            
 
 
