@@ -57,6 +57,43 @@ class WordleTests(BaseCase):
             message = "Requires SeleniumBase 2.4.4 or newer!"
             print(message)
             self.skip(message)
-            
+    
+    def test_wordle(self):
+        self.skip_incorrect_env()
+        self.open("https://www.nytimes.com/games/wordle/index.html")
+        self.click("game-app::shadow game-modal::shadow game-icon")
+        self.initialize_word_list()
+        keyboard_base = "game-app::shadow game-keyboard::shadow"
+        word = random.choice(self.word_list)
+        total_attempts = 0
+        success = False
+        for attempt in range(6):
+            total_attempts += 1
+            word = random.choice(self.word_list)
+            letters = []
+            for letter in word:
+                letter.append(letter)
+                button = 'button[data-key="%s"]' % letter
+                self.click(keyboard_base + button)
+            button = 'button.one-and-a-half'
+            self.click(keyboard_base + button)
+            row = 'game-app::shadow game-row[letters="%s"]::shadow ' % word
+            tile = row + "game-tile:nth-of-type(%s)"
+            self.wait_for_element(tile % "5" + '::shadow [data-state*="e"]')
+            letter_state = []
+            for i in range(1,6):
+                letter_eval = self.get_attribute(tile % str(i), "evaluation")
+                letter_state.append(letter_eval)
+            if letter_state.count("correct") == 5:
+                success = True
+                break
+            self.word_list.remove(word)
+            self.modify_word_list(word, letter_state)
+        
+        self.save_screenshot_to_logs()
+        print('\nWord: "%s"\nAttempts: %s' % (word.upper(), total_attempts))
+        if not success:
+            self.fail("Unable to solve for the correct word in 6 attempts!")
+        self.sleep(3)
 
 
