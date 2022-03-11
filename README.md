@@ -8,19 +8,19 @@ Once you clone this project on to your device, open your terminal and follow the
 
 - Change Directory
 
-    ''' change directory
+    ```change directory
     $ cd Wordle-Solver-Using-SeleniumBase
-    '''
+    ```
 
 - Install Dependencies
 
-    '''install dependencies
+    ```install dependencies
     $ pip install pytest
     $ pip install seleniumbase
-    '''
+    ```
 
 - Run Wordle-Solver
 
-    '''run wordle-solver
+    ```run wordle-solver
     $ python -m pytest wordle-solver.py
-    '''
+    ```
