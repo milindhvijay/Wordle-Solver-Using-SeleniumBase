@@ -72,7 +72,7 @@ class WordleTests(BaseCase):
             word = random.choice(self.word_list)
             letters = []
             for letter in word:
-                letter.append(letter)
+                letters.append(letter)
                 button = 'button[data-key="%s"]' % letter
                 self.click(keyboard_base + button)
             button = 'button.one-and-a-half'
