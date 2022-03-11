@@ -1,6 +1,4 @@
 import ast
-from distutils import text_file
-from email import message
 import random 
 import requests
 from seleniumbase import __version__
@@ -81,7 +79,7 @@ class WordleTests(BaseCase):
             tile = row + "game-tile:nth-of-type(%s)"
             self.wait_for_element(tile % "5" + '::shadow [data-state*="e"]')
             letter_state = []
-            for i in range(1,6):
+            for i in range(1, 6):
                 letter_eval = self.get_attribute(tile % str(i), "evaluation")
                 letter_state.append(letter_eval)
             if letter_state.count("correct") == 5:
@@ -89,7 +87,7 @@ class WordleTests(BaseCase):
                 break
             self.word_list.remove(word)
             self.modify_word_list(word, letter_state)
-        
+
         self.save_screenshot_to_logs()
         print('\nWord: "%s"\nAttempts: %s' % (word.upper(), total_attempts))
         if not success:
