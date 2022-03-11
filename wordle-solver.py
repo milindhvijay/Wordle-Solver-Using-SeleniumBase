@@ -61,7 +61,7 @@ class WordleTests(BaseCase):
         self.open("https://www.nytimes.com/games/wordle/index.html")
         self.click("game-app::shadow game-modal::shadow game-icon")
         self.initialize_word_list()
-        keyboard_base = "game-app::shadow game-keyboard::shadow"
+        keyboard_base = "game-app::shadow game-keyboard::shadow "
         word = random.choice(self.word_list)
         total_attempts = 0
         success = False
